@@ -9,9 +9,11 @@ public class Boundary {
 
 public class PlayerController : MonoBehaviour {
 
+    public GameObject bigExplosion;
     public float speed;
     public float tilt;
     public Boundary boundary;
+    public Vector3 bigExplosionPosition;
 
     public GameObject shot;
     public Transform shotSpawn;
@@ -21,11 +23,21 @@ public class PlayerController : MonoBehaviour {
 
     private void Update()
     {
-        if ((Input.GetButton("Jump") || Input.GetButton("Fire1")) && Time.time > nextFire) {
+        if (Input.GetButton("Fire1") && Time.time > nextFire) {
             nextFire = Time.time + fireRate;
             //GameObject clone = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;    
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);    
             GetComponent<AudioSource>().Play();
+        }
+
+        if (Input.GetButton("Jump"))
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject enemy in enemies) {
+                Destroy(enemy);
+            }
+
+            Instantiate(bigExplosion, bigExplosionPosition, transform.rotation);
         }
     }
 
