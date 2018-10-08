@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Boundary {
@@ -20,8 +21,14 @@ public class PlayerController : MonoBehaviour {
     public float fireRate;
 
     public float numberOfBigExplosions;
+    public Text bigExplosionText;
 
     private float nextFire;
+
+    private void Start()
+    {
+        bigExplosionText.text = "" + numberOfBigExplosions;
+    }
 
     private void Update()
     {
@@ -44,6 +51,7 @@ public class PlayerController : MonoBehaviour {
             Instantiate(bigExplosion, bigExplosionPosition, transform.rotation);
 
             numberOfBigExplosions = numberOfBigExplosions - 1;
+            bigExplosionText.text = "" + numberOfBigExplosions;
         }
     }
 
