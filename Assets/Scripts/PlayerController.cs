@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour {
     public Transform shotSpawn;
     public float fireRate;
 
+    public float numberOfBigExplosions;
+
     private float nextFire;
 
     private void Update()
@@ -30,14 +32,18 @@ public class PlayerController : MonoBehaviour {
             GetComponent<AudioSource>().Play();
         }
 
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && Time.time > nextFire && numberOfBigExplosions > 0)
         {
+            nextFire = Time.time + fireRate;
+
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject enemy in enemies) {
                 Destroy(enemy);
             }
 
             Instantiate(bigExplosion, bigExplosionPosition, transform.rotation);
+
+            numberOfBigExplosions = numberOfBigExplosions - 1;
         }
     }
 
