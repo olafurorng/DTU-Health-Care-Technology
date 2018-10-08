@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour {
     public Text restartText;
 
     private bool gameOver;
-    private bool restart; 
+    private bool restart;
     private int score;
 
 
