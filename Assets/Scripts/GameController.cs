@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
     public GameObject[] hazards;
     public Vector3 spawnValues;
     public int hazardCount;
+    public int hazardIncrease;
     public float spawnWait;
     public float startWait;
     public float waveWait;
@@ -52,7 +53,12 @@ public class GameController : MonoBehaviour {
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPositin, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);
-            } 
+            }
+
+            // next wave will be more difficult
+            spawnWait *= 0.9f; // less time between spawn
+            hazardCount += hazardIncrease; // more hazards
+
 
             yield return new WaitForSeconds(waveWait);
 
